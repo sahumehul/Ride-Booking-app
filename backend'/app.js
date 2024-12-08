@@ -7,6 +7,7 @@ const cookie = require("cookie-parser")
 const bodyParser = require('body-parser');
 const connectToDb = require("./db/db");
 const userRouter = require("./routes/user.routes")
+const captainRouter = require("./routes/caption.routes")
 app.use(bodyParser.json());
 
 
@@ -22,5 +23,6 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",userRouter)
+app.use("/captain",captainRouter)
 
 module.exports = app;
