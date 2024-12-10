@@ -4,16 +4,14 @@ import { Link } from 'react-router-dom';
 const CaptainLogin = () => {
   const [email,setEmail] = useState("");
   const [password, setPassword] = useState('')
-  const [userData, setUserData] = useState({});
+  const [captainData, setCaptainData] = useState({});
 
   const submitHandler=(e)=>{
       e.preventDefault()
-      setUserData({
+      setCaptainData({
           email:email,
           password: password
-      })
-      console.log(userData);
-      
+      })      
       setEmail('')
       setPassword('')
   }
@@ -21,13 +19,13 @@ const CaptainLogin = () => {
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
         <img
-          className="w-16 mb-10"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/1024px-Uber_logo_2018.svg.png"
+          className="w-20 mb-3"
+          src="https://www.svgrepo.com/show/505031/uber-driver.svg"
         />
         <form onSubmit={(e)=>{
             submitHandler(e)
         }}>
-          <h3 className="text-lg font-medium mb-2">What's your email</h3>
+          <h3 className="text-lg font-medium mb-2">What's your email Captain</h3>
           <input
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
