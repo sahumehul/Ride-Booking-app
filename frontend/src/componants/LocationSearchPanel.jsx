@@ -11,8 +11,8 @@ const LocationSearchPanel = ({setPanelOpen,setVehiclePanel}) => {
   return (
     <div>
       {
-        location.map(function(elem){
-          return <div onClick={()=>{setVehiclePanel(true),setPanelOpen(false)}} className='flex gap-4 items-center justify-start my-2 border-gray-50 active:border-black  border-2 p-3 rounded-xl '>
+        location.map(function(elem,idx){
+          return <div key={idx} onClick={()=>{setVehiclePanel(true),setPanelOpen(false)}} className='flex gap-4 items-center justify-start my-2 border-gray-50 active:border-black  border-2 p-3 rounded-xl '>
         <h2 className='bg-[#eee] h-8 flex items-center justify-center w-8 rounded-full'><i className="ri-map-pin-fill"></i></h2>
         <h4 className='font-medium'>{elem}</h4>
       </div>
