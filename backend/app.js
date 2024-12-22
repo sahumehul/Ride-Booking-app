@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const connectToDb = require("./db/db");
 const userRouter = require("./routes/user.routes")
 const captainRouter = require("./routes/caption.routes")
+const mapsRoutes = require("./routes/maps.routes")
 app.use(bodyParser.json());
 
 
@@ -24,5 +25,6 @@ app.get("/",(req,res)=>{
 
 app.use("/users",userRouter)
 app.use("/captain",captainRouter)
+app.use("/maps",mapsRoutes)
 
 module.exports = app;
