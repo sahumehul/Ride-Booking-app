@@ -41,7 +41,12 @@ const rideSchema = new mongoose.Schema({
     },
     signature:{
         type: String
+    },
+    otp :{
+        type : Number,
+        required: true,
+        select : false
     }
 })
 
-module.exports = new mongoose.Model('ride',rideSchema)
+module.exports = new mongoose.model('ride',rideSchema)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
+const VehiclePanel = ({selectVehicle,fare,setVehiclePanel,setConfirmRidePanel}) => {
   return (
     <div>
         <h5
@@ -12,7 +12,7 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
           <i className=" text-3xl text-gray-600 ri-arrow-down-wide-fill"></i>
         </h5>
         <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
-        <div onClick={()=>{setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
+        <div onClick={()=>{selectVehicle('car'),setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
           <img
             className="h-12"
             src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_538,w_956/v1688398971/assets/29/fbb8b0-75b1-4e2a-8533-3a364e7042fa/original/UberSelect-White.png"
@@ -20,7 +20,7 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
           />
           <div className="ml-2 w-1/2">
             <h4 className="font-medium text-base">
-              UberGo{" "}
+              UberGo
               <span>
                 <i className="ri-user-3-fill"></i>
               </span>
@@ -31,9 +31,9 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
               Affordable, compact rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">₹193.20</h2>
+          <h2 className="text-lg font-semibold">₹{fare.car}</h2>
         </div>
-        <div onClick={()=>{setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
+        <div onClick={()=>{selectVehicle('motorcycle'),setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
           <img
             className="h-12"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQTJw6dzEo1MYXOAbONCG1oL82rxU_Bitb-g&s"
@@ -41,7 +41,7 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
           />
           <div className="ml-2 w-1/2">
             <h4 className="font-medium text-base">
-              Moto{" "}
+              Moto
               <span>
                 <i className="ri-user-3-fill"></i>
               </span>
@@ -52,9 +52,9 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
               Affordable, motorcycle rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">₹65</h2>
+          <h2 className="text-lg font-semibold">₹{fare.motorcycle}</h2>
         </div>
-        <div onClick={()=>{setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
+        <div onClick={()=>{selectVehicle('auto'),setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
           <img
             className="h-12"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsFabRnJZ8deGXJSKA1QjN45920WytRrdFsA&s"
@@ -62,7 +62,7 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
           />
           <div className="ml-2 w-1/2">
             <h4 className="font-medium text-base">
-              Uberauto{" "}
+              Uberauto
               <span>
                 <i className="ri-user-3-fill"></i>
               </span>
@@ -73,7 +73,7 @@ const VehiclePanel = ({setVehiclePanel,setConfirmRidePanel}) => {
               Affordable, motorcycle rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">₹65</h2>
+          <h2 className="text-lg font-semibold">₹{fare.auto}</h2>
         </div>
 
     </div>
