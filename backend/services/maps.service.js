@@ -1,4 +1,5 @@
 const axios = require("axios")
+const captainModel = require("../model/caption.model")
 
 module.exports.getAddressCoordinate = async(address)=>{
     const apiKey = process.env.GOOGLE_MAPS_API;
@@ -77,4 +78,15 @@ module.exports.getSuggestions=async(input)=>{
         throw error
         
     }
+}
+
+module.exports.getCaptainInRadius=async(ltd,lng,radius)=>{
+    const captains = await captainModel.find({
+        location: {
+            $geoWithin :{
+                $centerSphere : [[ltd,lng],radius /3963.2]
+            }
+        }
+    })
+    return captains
 }

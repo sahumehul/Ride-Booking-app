@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import axios from "axios"
@@ -8,6 +8,8 @@ import VehiclePanel from "../componants/VehiclePanel";
 import ConfirmRide from "../componants/ConfirmRide";
 import LookingForDriver from "../componants/LookingForDriver";
 import WaitingForDriver from "../componants/WaitingForDriver";
+import { SocketContext } from "../context/SocketContext";
+import { UserDataContext } from "../context/UserContext";
 
 const Home = () => {
   const [pickup, setpickup] = useState("");
@@ -29,6 +31,20 @@ const Home = () => {
   const confirmRidePanelRef = useRef(null);
   const vehicleFoundPanelRef = useRef(null);
   const waitingForDriverRef = useRef(null);
+  const {socket} = useContext(SocketContext)
+   const { user } = useContext(UserDataContext);
+
+  useEffect(() => {
+    try {
+      const id = localStorage.getItem("id")
+      
+      socket.emit("join", { userType: "user", userId: id });
+    } catch (err) {
+      console.error("Socket emit failed:", err);
+    }
+    
+  }, [user, socket]);
+  
 
   useGSAP(
     function () {

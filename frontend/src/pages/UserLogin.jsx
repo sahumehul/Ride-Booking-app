@@ -6,7 +6,6 @@ import { UserDataContext } from "../context/UserContext";
 const UserLogin = () => {
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState('')
-    const [userData, setUserData] = useState({});
     const {user, setUser} = useContext(UserDataContext)
     const navigate = useNavigate()
     const submitHandler=async(e)=>{
@@ -20,6 +19,7 @@ const UserLogin = () => {
           const data = response.data
           setUser(data.user)
           localStorage.setItem('token', data.token)
+          localStorage.setItem("id", data.user._id);
           navigate('/home')
         }
         setEmail('')
