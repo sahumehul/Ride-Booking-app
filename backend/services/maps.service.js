@@ -67,7 +67,6 @@ module.exports.getSuggestions=async(input)=>{
     try {
         const response = await axios.get(url);
         if (response.data.status === 'OK'){
-            console.log(response.data);
             
             return response.data.predictions;
         }else{
@@ -80,13 +79,24 @@ module.exports.getSuggestions=async(input)=>{
     }
 }
 
-module.exports.getCaptainInRadius=async(ltd,lng,radius)=>{
-    const captains = await captainModel.find({
-        location: {
-            $geoWithin :{
-                $centerSphere : [[ltd,lng],radius /3963.2]
+module.exports.getCaptainsInTheRadius = async (lat, lng, radius) => {
+    // radius in kilometers
+    console.log(lat, lng, radius);
+
+    try {
+        const captains = await captainModel.find({
+            location: {
+                $geoWithin: {
+                    $centerSphere: [[lng, lat], radius / 6371] // Note: GeoJSON uses [lng, lat]
+                }
             }
-        }
-    })
-    return captains
-}
+        });
+
+        // console.log("Captains found:", captains);
+        return captains;
+    } catch (error) {
+        console.error("Error fetching captains:", error.message);
+        throw error;
+    }
+};
+

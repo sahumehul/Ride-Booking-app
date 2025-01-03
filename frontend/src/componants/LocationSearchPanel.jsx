@@ -11,6 +11,7 @@ const LocationSearchPanel = ({ setPanelOpen, setVehiclePanel, activeField, setDe
 
   return (
     <div>
+    
       {suggestions.map((elem, idx) => (
         <div 
           key={idx} 

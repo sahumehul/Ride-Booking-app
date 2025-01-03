@@ -16,11 +16,6 @@ function initializeSocket(server) {
         console.log(`Client connected: ${socket.id}`);
 
         socket.on('join', async (data) => {
-            // if (!data || !data.userId || !data.userType) {
-            //     console.error('Invalid data received in join event:', data);
-            //     return;
-            // }
-        
             const { userId, userType } = data;
         
             console.log(userId, userType);
@@ -37,6 +32,20 @@ function initializeSocket(server) {
                 console.error('Error updating socketId in database:', err);
             }
         });
+
+        socket.on('update-location-captain',async (data)=>{
+            const {userId, location} = data
+            if(!location || !location.ltd || !location.lng){
+                socket.emit('error',{message : 'Invalid location'})
+            }
+
+            await captainModel.findByIdAndUpdate(userId,{
+                location :{
+                    ltd: location.ltd,
+                    lng: location.lng
+                }
+            })
+        })
         
 
         socket.on('disconnect', () => {
@@ -47,7 +56,7 @@ function initializeSocket(server) {
 
 function sendMessageToSocketId(socketId, message) {
     if (io) {
-        io.to(socketId).emit('message', message);
+        io.to(socketId).emit(message.event, message.data);
     } else {
         console.log('Socket.io not initialized');
     }

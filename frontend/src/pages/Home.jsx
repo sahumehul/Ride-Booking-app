@@ -10,6 +10,8 @@ import LookingForDriver from "../componants/LookingForDriver";
 import WaitingForDriver from "../componants/WaitingForDriver";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import LiveTracking from "../componants/LiveTracking";
 
 const Home = () => {
   const [pickup, setpickup] = useState("");
@@ -33,17 +35,33 @@ const Home = () => {
   const waitingForDriverRef = useRef(null);
   const {socket} = useContext(SocketContext)
    const { user } = useContext(UserDataContext);
+   const navigate = useNavigate()
 
-  useEffect(() => {
-    try {
-      const id = localStorage.getItem("id")
-      
-      socket.emit("join", { userType: "user", userId: id });
-    } catch (err) {
-      console.error("Socket emit failed:", err);
-    }
+   useEffect(() => {
+    const id = localStorage.getItem("id");
     
-  }, [user, socket]);
+    socket.emit("join", { userType: "user", userId: id });
+  
+    const handleRideConfirmed = (ride) => {
+      setWaitingForDriver(true);
+      setVehicleFound(false);
+      setRide(ride?.data || ride);
+    };
+  
+    const handleRideStarted = (ride) => {
+      console.log(ride);
+      
+      setWaitingForDriver(false);
+      navigate("/riding",{state: ride});
+    };
+  
+    socket.on("ride-confirmed", handleRideConfirmed);
+    socket.on("ride-started", handleRideStarted);
+  
+    // Cleanup on unmount
+  }, [socket, navigate]); // Ensure these hooks depend on socket and navigate
+  
+
   
 
   useGSAP(
@@ -269,14 +287,10 @@ const Home = () => {
         alt="logo"
       />
       <div className="h-screen w-screen">
-        <img
-          className="object-cover h-full w-full"
-          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
-          alt=""
-        />
+        <LiveTracking/>
       </div>
       <div className="flex flex-col justify-end w-full h-screen top-0 absolute">
-        <div className="h-[30%] bg-white p-6 relative ">
+        <div className="h-[35%] bg-white p-6 relative ">
           <h5
             onClick={() => {
               setPanelOpen(false);
@@ -292,7 +306,7 @@ const Home = () => {
               submitHandler(e);
             }}
           >
-            <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-900 rounded-full"></div>
+            <div className="line absolute h-16 w-1 top-[40%] left-10 bg-gray-900 rounded-full"></div>
             <input
               onClick={() => {
                 setPanelOpen(true);
@@ -351,7 +365,7 @@ const Home = () => {
       ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-6 pt-12"
       >
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver}/>
+        <WaitingForDriver ride={ride} setVehicleFound={setVehicleFound} waitingForDriver={waitingForDriver} setWaitingForDriver={setWaitingForDriver}/>
       </div>
     </div>
   );
