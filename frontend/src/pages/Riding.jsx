@@ -8,7 +8,6 @@ const Riding = () => {
     const {socket} = useContext(SocketContext)
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(socket);
 
         if (!socket || typeof socket.on !== 'function') {
             console.error('Socket is not properly initialized.');

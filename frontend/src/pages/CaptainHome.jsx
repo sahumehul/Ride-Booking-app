@@ -44,7 +44,6 @@ const CaptainHome = () => {
       updateLocation();
 
       socket.on('new-ride',(data)=>{
-        console.log("captain home: ", data);
         
         setRide(data)
         setUser(data.user.fullName)
@@ -80,7 +79,7 @@ const CaptainHome = () => {
         }
       );
       
-      console.log(response.data);
+
       
       // If the response is successful
       if (response.status === 200) {

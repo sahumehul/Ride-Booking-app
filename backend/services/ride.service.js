@@ -100,7 +100,6 @@ module.exports.startRide = async ({ rideId, otp, captain }) => {
     }
   
     if (String(ride.otp) !== String(otp)) {
-        console.log(otp);
         
       throw new Error('Invalid OTP');
     }

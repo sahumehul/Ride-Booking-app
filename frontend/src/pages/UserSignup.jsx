@@ -11,9 +11,7 @@ const UserSignup = () => {
   const { user, setUser } = useContext(UserDataContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("User updated:", user);
-  }, [user]);
+ 
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -32,7 +30,7 @@ const UserSignup = () => {
         newUser
       );
       const data = response.data;
-      console.log("Server response user:", data.user);
+      
 
       // Update context state
       setUser(data.user);

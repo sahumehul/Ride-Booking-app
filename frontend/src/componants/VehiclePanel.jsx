@@ -1,16 +1,19 @@
 import React from 'react'
 
-const VehiclePanel = ({selectVehicle,fare,setVehiclePanel,setConfirmRidePanel}) => {
+const VehiclePanel = ({selectVehicle,fare,setVehiclePanel,setConfirmRidePanel,vehiclePanel}) => {
   return (
     <div>
-        <h5
-          onClick={() => {
-            setVehiclePanel(false);
-          }}
-          className="p-1 absolute w-[93%] text-center top-0"
-        >
-          <i className=" text-3xl text-gray-600 ri-arrow-down-wide-fill"></i>
-        </h5>
+        {vehiclePanel && (
+  <h5
+    onClick={() => {
+      setVehiclePanel(false);
+    }}
+    className="p-1 absolute w-[93%] text-center top-0"
+  >
+    <i className=" text-3xl text-gray-600 ri-arrow-down-wide-fill"></i>
+  </h5>
+)}
+
         <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
         <div onClick={()=>{selectVehicle('car'),setConfirmRidePanel(true),setVehiclePanel(false)}} className="flex p-3 mb-2 border-2 active:border-black rounded-xl w-full items-center justify-between">
           <img
@@ -20,7 +23,7 @@ const VehiclePanel = ({selectVehicle,fare,setVehiclePanel,setConfirmRidePanel}) 
           />
           <div className="ml-2 w-1/2">
             <h4 className="font-medium text-base">
-              UberGo
+              Car
               <span>
                 <i className="ri-user-3-fill"></i>
               </span>
@@ -62,11 +65,11 @@ const VehiclePanel = ({selectVehicle,fare,setVehiclePanel,setConfirmRidePanel}) 
           />
           <div className="ml-2 w-1/2">
             <h4 className="font-medium text-base">
-              Uberauto
+              Auto
               <span>
                 <i className="ri-user-3-fill"></i>
               </span>
-              1
+              3
             </h4>
             <h5 className="font-medium text-sm">3 mins away</h5>
             <p className="font-normal text-xs text-gray-600">

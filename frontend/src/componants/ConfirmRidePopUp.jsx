@@ -15,7 +15,7 @@ const ConfirmRidePopUp = ({ride,user, setRidePopUpPanel, setConfirmRidePopUpPane
         console.error('Authorization token not found.')
         return;
       }
-      console.log(otp);
+
       
       const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`, {
         params: {
@@ -27,7 +27,6 @@ const ConfirmRidePopUp = ({ride,user, setRidePopUpPanel, setConfirmRidePopUpPane
         }
     })
       
-      console.log(response);
       
       // If the response is successful
       if (response.status === 200) {

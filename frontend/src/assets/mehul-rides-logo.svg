@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <!-- Background -->
+  <rect width="800" height="300" fill="white" fill-opacity="0.1"/>
+  
+  <!-- Car Body -->
+  <path d="M200 150 
+           C200 150, 250 150, 300 150
+           L500 150
+           C550 150, 580 150, 600 180
+           L600 200
+           C600 220, 580 230, 550 230
+           L250 230
+           C220 230, 200 220, 200 200
+           Z" 
+        fill="#2c3e50"/>
+  
+  <!-- Car Roof -->
+  <path d="M300 150
+           L350 100
+           L450 100
+           L500 150
+           Z"
+        fill="#34495e"/>
+  
+  <!-- Windows -->
+  <path d="M320 145
+           L360 105
+           L440 105
+           L480 145
+           Z"
+        fill="#ecf0f1"/>
+  
+  <!-- Wheels -->
+  <circle cx="280" cy="230" r="40" fill="#7f8c8d"/>
+  <circle cx="280" cy="230" r="25" fill="#bdc3c7"/>
+  <circle cx="520" cy="230" r="40" fill="#7f8c8d"/>
+  <circle cx="520" cy="230" r="25" fill="#bdc3c7"/>
+  
+  <!-- Headlight -->
+  <ellipse cx="200" cy="170" rx="10" ry="15" fill="#f1c40f"/>
+  
+  <!-- Text -->
+  <text x="400" y="80" 
+        font-family="Arial Black, sans-serif" 
+        font-size="48" 
+        text-anchor="middle" 
+        fill="#2c3e50"
+        font-weight="bold">
+    MEHUL RIDES
+  </text>
+</svg>

@@ -28,7 +28,6 @@ const FinishRide = ({rideData,setFinishRidePanel}) => {
         );
 
         if (response.status === 200) {
-            console.log('Ride ended successfully:', response.data);
             navigate("/captain-home");
         } else {
             console.error('Unexpected response status:', response.status);

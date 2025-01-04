@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 
 const WaitingForDriver = ({ ride, setVehicleFound, waitingForDriver, setWaitingForDriver }) => {
-    useEffect(() => {
-        console.log(ride); // This will log the captain's details passed as the `ride` prop.
-    }, [ride]);
+    
 
     return (
         <div>
@@ -25,11 +23,11 @@ const WaitingForDriver = ({ ride, setVehicleFound, waitingForDriver, setWaitingF
                 />
                 <div className="text-right">
                     {/* Captain's Name */}
-                    <h2 className="text-lg font-medium">{ride?.captain.fullName?.firstName} {ride?.captain.fullName?.lastName}</h2>
+                    <h2 className="text-lg font-medium capitalize">{ride?.captain.fullName?.firstName} {ride?.captain.fullName?.lastName}</h2>
                     {/* Vehicle Number */}
-                    <h4 className="text-xl font-semibold -mt-1 -mb-1">{ride?.captain.vehicle?.numPlate}</h4>
+                    <h4 className="text-xl font-semibold -mt-1 -mb-1 capitalize">{ride?.captain.vehicle?.numPlate}</h4>
                     {/* Vehicle Type */}
-                    <p className="text-sm text-gray-600">{ride?.captain.vehicle?.vehicleType}</p>
+                    <h1 className="text-sm font-semibold">{ride?.captain.vehicle?.vehicleType}</h1>
                     <h1 className="text-lg font-semibold">{ride?.otp}</h1>
                 </div>
             </div>
@@ -40,16 +38,16 @@ const WaitingForDriver = ({ ride, setVehicleFound, waitingForDriver, setWaitingF
                     <div className="flex items-center gap-5 border-b-2 p-3">
                         <i className="ri-map-pin-user-fill"></i>
                         <div>
-                            <h3 className="text-lg font-medium">{ride?.pickup}</h3>
-                            <p className="text-sm text-gray-600 -mt-1">Pickup Location</p>
+                            <h3 className="text-lg font-medium">Pickup Address</h3>
+                            <p className="text-sm text-gray-600 -mt-1">{ride?.pickup}</p>
                         </div>
                     </div>
                     {/* Destination Location */}
                     <div className="flex items-center gap-5 border-b-2 p-3">
                         <i className="ri-map-pin-fill"></i>
                         <div>
-                            <h3 className="text-lg font-medium">{ride?.destination}</h3>
-                            <p className="text-sm text-gray-600 -mt-1">Destination Location</p>
+                            <h3 className="text-lg font-medium">Destination Address</h3>
+                            <p className="text-sm text-gray-600 -mt-1">{ride?.destination}</p>
                         </div>
                     </div>
                     {/* Fare */}
@@ -57,7 +55,7 @@ const WaitingForDriver = ({ ride, setVehicleFound, waitingForDriver, setWaitingF
                         <i className="ri-currency-line"></i>
                         <div>
                             <h3 className="text-lg font-medium">₹{ride?.fare}</h3>
-                            <p className="text-sm text-gray-600 -mt-1">Fare</p>
+                            <p className="text-sm text-gray-600 -mt-1">Cash Cash</p>
                         </div>
                     </div>
                 </div>

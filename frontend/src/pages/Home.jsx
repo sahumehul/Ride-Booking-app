@@ -12,6 +12,8 @@ import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../componants/LiveTracking";
+import MehulRidesLogo from "../componants/MehulRidesLogo";
+
 
 const Home = () => {
   const [pickup, setpickup] = useState("");
@@ -49,8 +51,6 @@ const Home = () => {
     };
   
     const handleRideStarted = (ride) => {
-      console.log(ride);
-      
       setWaitingForDriver(false);
       navigate("/riding",{state: ride});
     };
@@ -70,6 +70,7 @@ const Home = () => {
         gsap.to(panelRef.current, {
           height: "70%",
           padding: 24,
+          marginTop: 0
         });
         gsap.to(panelcloseRef.current, {
           opacity: 1,
@@ -163,7 +164,6 @@ const Home = () => {
         params: { input: value },
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("pickup suggestions:", response.data);
       setpickupSuggestion(response.data || []);
     } catch (error) {
       console.error("Error fetching pickup suggestions:", error.response?.data || error.message);
@@ -187,7 +187,7 @@ const Home = () => {
         params: { input: value },
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("Destination suggestions:", response.data);
+
       setDestinationSuggestion(response.data || []);
     } catch (error) {
       console.error("Error fetching destination suggestions:", error.response?.data || error.message);
@@ -223,8 +223,7 @@ const Home = () => {
         },
       });
   
-      // Handle response
-      console.log("Fare details:", response.data);
+     
   
       // Optionally set the fare or other state
       setFare(response.data); // Assuming `setFare` updates fare details in the state
@@ -266,8 +265,7 @@ const Home = () => {
         }
       );
   
-      // Handle response
-      console.log("Ride created successfully:", response.data);
+     
   
       // Optionally set the ride details in state
       // setRide(response.data); // Assuming `setRide` updates the ride state
@@ -281,16 +279,15 @@ const Home = () => {
   
   return (
     <div className="relative h-screen overflow-hidden">
-      <img
-        className="w-16 absolute left-5 top-5"
-        src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-        alt="logo"
-      />
+      <MehulRidesLogo className="w-48 absolute top-5" />
       <div className="h-screen w-screen">
-        <LiveTracking/>
+      <div className='h-4/5'>
+                <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
+
+            </div>
       </div>
       <div className="flex flex-col justify-end w-full h-screen top-0 absolute">
-        <div className="h-[35%] bg-white p-6 relative ">
+        <div className="h-[30%] bg-white p-6 relative scroll ">
           <h5
             onClick={() => {
               setPanelOpen(false);
@@ -306,7 +303,7 @@ const Home = () => {
               submitHandler(e);
             }}
           >
-            <div className="line absolute h-16 w-1 top-[40%] left-10 bg-gray-900 rounded-full"></div>
+            <div className="line absolute h-16 w-1 top-[45%] left-10 bg-gray-900 rounded-full"></div>
             <input
               onClick={() => {
                 setPanelOpen(true);
@@ -330,10 +327,11 @@ const Home = () => {
               placeholder="Enter your destination"
             />
           </form>
-          <button onClick={findTrip} className="text-white bg-black rounded-lg px-4 py-2 mt-3 w-full">Find Trip</button>
+          
         </div>
         <div ref={panelRef} className="h-0 bg-white">
           <LocationSearchPanel
+          findTrip={findTrip}
           suggestions = {activeField=== 'pickup' ? pickupSuggestion : destinationSuggestion}
             setDestination = {setDestination}
             setpickup = {setpickup}
@@ -345,19 +343,19 @@ const Home = () => {
       </div>
       <div
         ref={vehiclePanelRef}
-        className="fixed w-full z-10 bottom-0 bg-white px-3 py-10 translate-y-full pt-12"
+        className="fixed w-full z-10 bottom-0 bg-white px-3 py-10  pt-10"
       >
-        <VehiclePanel selectVehicle = {setVehicleType}  fare={fare} setVehiclePanel={setVehiclePanel} setConfirmRidePanel={setConfirmRidePanel} />
+        <VehiclePanel vehiclePanel={vehiclePanel} selectVehicle = {setVehicleType}  fare={fare} setVehiclePanel={setVehiclePanel} setConfirmRidePanel={setConfirmRidePanel} />
       </div>
       <div
         ref={confirmRidePanelRef}
-        className="fixed w-full z-10 bottom-0 bg-white px-3 py-6 translate-y-full pt-12"
+        className="fixed w-full z-10 bottom-0 bg-white px-3 py-6  pt-12"
       >
         <ConfirmRide pickup={pickup} destination={destination} fare={fare} vehicleType={vehicleType} createRide={createRide} setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} />
       </div>
       <div
         ref={vehicleFoundPanelRef}
-        className="fixed w-full z-10 bottom-0 bg-white px-3 py-6 translate-y-full pt-12"
+        className="fixed w-full z-10 bottom-0 bg-white px-3 py-6  pt-12"
       >
         <LookingForDriver pickup={pickup} destination={destination} fare={fare} vehicleType={vehicleType} setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} setVehiclePanel={setVehiclePanel}/>
       </div>

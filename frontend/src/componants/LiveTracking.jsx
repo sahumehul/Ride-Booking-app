@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api'
+import React, { useState, useEffect } from 'react';
+import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
     width: '100%',
@@ -8,53 +8,45 @@ const containerStyle = {
 
 const center = {
     lat: -3.745,
-    lng: -38.523
+    lng: -38.523,
 };
 
 const LiveTracking = () => {
-    const [ currentPosition, setCurrentPosition ] = useState(center);
+    const [currentPosition, setCurrentPosition] = useState(center);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
+        // Function to update position
+        const updatePosition = (position) => {
             const { latitude, longitude } = position.coords;
             setCurrentPosition({
                 lat: latitude,
-                lng: longitude
+                lng: longitude,
             });
-        });
-
-        const watchId = navigator.geolocation.watchPosition((position) => {
-            const { latitude, longitude } = position.coords;
-            setCurrentPosition({
-                lat: latitude,
-                lng: longitude
-            });
-        });
-
-        return () => navigator.geolocation.clearWatch(watchId);
-    }, []);
-
-    useEffect(() => {
-        const updatePosition = () => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setCurrentPosition({
-                        lat: latitude,
-                        lng: longitude
-                    });
-                },
-                (error) => {
-                    console.error('Error fetching position:', error.message);
-                }
-            );
-            
         };
 
-        updatePosition(); // Initial position update
+        // Error handling for geolocation
+        const handleError = (error) => {
+            console.error('Error fetching position:', error.message);
+        };
 
-        const intervalId = setInterval(updatePosition, 1000); // Update every 10 seconds
+        // Watch position continuously
+        const watchId = navigator.geolocation.watchPosition(
+            updatePosition,
+            handleError,
+            { enableHighAccuracy: true }
+        );
 
+        // Initial position fetch
+        navigator.geolocation.getCurrentPosition(
+            updatePosition,
+            handleError,
+            { enableHighAccuracy: true }
+        );
+
+        // Cleanup on unmount
+        return () => {
+            navigator.geolocation.clearWatch(watchId);
+        };
     }, []);
 
     return (
@@ -67,7 +59,7 @@ const LiveTracking = () => {
                 <Marker position={currentPosition} />
             </GoogleMap>
         </LoadScript>
-    )
-}
+    );
+};
 
-export default LiveTracking
+export default LiveTracking;
