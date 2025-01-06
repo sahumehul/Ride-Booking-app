@@ -51,10 +51,13 @@ const UserSignup = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img
+        {/* <img
           className="w-16 mb-10"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYQy-OIkA6In0fTvVwZADPmFFibjmszu2A0g&s"
-        />
+        /> */}
+        <h1 className="mb-8 text-2xl sm:text-5xl font-mono font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
+  Mehul Rides
+</h1>
         <form onSubmit={submitHandler}>
           <h3 className="text-lg font-medium mb-2">What's your Name</h3>
           <div className="flex gap-4 mb-7">

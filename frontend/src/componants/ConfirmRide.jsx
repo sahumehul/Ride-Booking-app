@@ -6,7 +6,6 @@ const ConfirmRide = ({setVehicleFound,setConfirmRidePanel,setVehiclePanel,fare,c
       <h5
         onClick={() => {
           setConfirmRidePanel(false);
-          setVehiclePanel(false)
         }}
         className="p-1 absolute w-[93%] text-center top-0"
       >

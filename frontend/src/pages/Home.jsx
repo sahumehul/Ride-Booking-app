@@ -12,7 +12,7 @@ import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import LiveTracking from "../componants/LiveTracking";
-import MehulRidesLogo from "../componants/MehulRidesLogo";
+// import MehulRidesLogo from "../componants/MehulRidesLogo";
 
 
 const Home = () => {
@@ -279,7 +279,8 @@ const Home = () => {
   
   return (
     <div className="relative h-screen overflow-hidden">
-      <MehulRidesLogo className="w-48 absolute top-5" />
+      {/* <MehulRidesLogo className="w-48 absolute top-5" /> */}
+
       <div className="h-screen w-screen">
       <div className='h-4/5'>
                 <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />

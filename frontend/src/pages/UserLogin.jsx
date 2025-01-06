@@ -29,10 +29,14 @@ const UserLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img
+        {/* <img
           className="w-16 mb-10"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/1024px-Uber_logo_2018.svg.png"
-        />
+        /> */}
+        <h1 className="mb-8 text-2xl sm:text-5xl font-mono font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
+  Mehul Rides
+</h1>
+
         <form onSubmit={(e)=>{
             submitHandler(e)
         }}>

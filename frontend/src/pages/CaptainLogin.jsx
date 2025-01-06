@@ -28,10 +28,13 @@ const CaptainLogin = () => {
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
-        <img
+        {/* <img
           className="w-20 mb-3"
           src="https://www.svgrepo.com/show/505031/uber-driver.svg"
-        />
+        /> */}
+        <h1 className="mb-8 text-2xl sm:text-5xl font-mono font-extrabold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg">
+  Mehul Rides
+</h1>
         <form onSubmit={(e)=>{
             submitHandler(e)
         }}>
