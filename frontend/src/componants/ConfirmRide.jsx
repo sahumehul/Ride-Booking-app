@@ -42,7 +42,7 @@ const ConfirmRide = ({setVehicleFound,setConfirmRidePanel,setVehiclePanel,fare,c
           </div>
         </div>
         
-        <button onClick={()=>{createRide(),setVehicleFound(true),setConfirmRidePanel(false)}} className="w-full mt-5 bg-green-600 p-2 text-white font-semibold rounded-lg">
+        <button onClick={()=>{createRide(),setVehicleFound(true),setConfirmRidePanel(false)}} className="w-full mb-5 bg-green-600 p-2 text-white font-semibold rounded-lg">
           Confirm
         </button>
       </div>

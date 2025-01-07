@@ -27,10 +27,10 @@ const CaptainRiding = () => {
   );
   return (
     <div className="h-screen">
-      <div className="fixed p-6 top-0 flex items-center justify-between w-full">
-        <img
-          className="w-16"
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+      <div className="fixed p-2 top-0 flex items-center justify-between w-full">
+      <img
+          className="w-32"
+          src="      https://mir-s3-cdn-cf.behance.net/project_modules/fs/4a7ce8105340349.5f76a68c6c5d6.gif"
         ></img>
         <Link
           to="/captain-home"
@@ -40,7 +40,7 @@ const CaptainRiding = () => {
         </Link>
       </div>
       <div className="h-4/5">
-        <LiveTracking/>
+      <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
       </div>
       <div onClick={() => {
             setFinishRidePanel(true)

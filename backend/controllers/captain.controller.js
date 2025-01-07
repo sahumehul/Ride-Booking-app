@@ -4,7 +4,7 @@ const captainService = require("../services/captain.service");
 const blackListModel = require("../model/blackListToken.model");
 
 
-module.exports.registerCaptain = async(req,res,next)=>{
+module.exports.registerCaptain = async(req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({erros: errors.array()})
@@ -34,7 +34,7 @@ module.exports.registerCaptain = async(req,res,next)=>{
     res.status(201).json({token,captain})
 }
 
-module.exports.loginCaptain= async(req,res,next)=>{
+module.exports.loginCaptain= async(req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({erros: errors.array()})
@@ -57,11 +57,11 @@ module.exports.loginCaptain= async(req,res,next)=>{
     res.status(200).json({token, captain})
 }
 
-module.exports.getCaptainProfile=async(req,res,next)=>{
+module.exports.getCaptainProfile=async(req,res)=>{
     return res.status(200).json({captain : req.captain})
 }
 
-module.exports.logoutCaptain=async(req,res,next)=>{
+module.exports.logoutCaptain=async(req,res)=>{
     const token = req.cookies.token || req.headers.authorization.split(" ")[1];
     await blackListModel.create({token})
     res.clearCookie('token')

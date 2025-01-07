@@ -24,7 +24,7 @@ const LookingForDriver = ({setConfirmRidePanel,pickup,destination,fare,vehicleTy
         <i className="ri-map-pin-user-fill"></i>
           <div>
             <h3 className="text-lg font-medium">Pickup Address</h3>
-            <p className="text-sm text-gray-600 -mt-1"></p>
+            <p className="text-sm text-gray-600 -mt-1">{pickup}</p>
           </div>
         </div>
         <div className="flex items-center gap-5 border-b-2 p-3">

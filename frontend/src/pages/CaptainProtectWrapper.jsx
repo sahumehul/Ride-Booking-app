@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CaptainDataContext } from '../context/CaptainContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../componants/Loading'
 
 const CaptainProtectWrapper = ({children}) => {
     const {captain, setCaptain} = useContext(CaptainDataContext)
@@ -29,7 +30,7 @@ const CaptainProtectWrapper = ({children}) => {
 
 
     if(isLoading){
-      return <div>Loading...</div>
+      return <div><Loading/></div>
     }
   return (
     <>{children}</>

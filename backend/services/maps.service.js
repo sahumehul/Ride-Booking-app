@@ -81,7 +81,7 @@ module.exports.getSuggestions=async(input)=>{
 
 module.exports.getCaptainsInTheRadius = async (lat, lng, radius) => {
     // radius in kilometers
-    console.log(lat, lng, radius);
+    // console.log(lat, lng, radius);
 
     try {
         const captains = await captainModel.find({

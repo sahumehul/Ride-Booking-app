@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const mapService = require("../services/maps.service")
 
-module.exports.getCoordinates =async  (req,res,next)=>{
+module.exports.getCoordinates =async  (req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({erros: errors.array()})
@@ -16,7 +16,7 @@ module.exports.getCoordinates =async  (req,res,next)=>{
     }
 }
 
-module.exports.getDistanceTime = async (req, res, next) => {
+module.exports.getDistanceTime = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -33,7 +33,7 @@ module.exports.getDistanceTime = async (req, res, next) => {
     }
 };
 
-module.exports.getAutoSuggestion =async(req,res,next)=>{
+module.exports.getAutoSuggestion =async(req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

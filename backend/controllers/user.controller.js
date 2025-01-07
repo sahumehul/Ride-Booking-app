@@ -3,7 +3,7 @@ const {validationResult} = require("express-validator");
 const userService = require("../services/user.service")
 const blackListTokenModel = require("../model/blackListToken.model")
 
-module.exports.registerUser = async(req,res,next)=>{
+module.exports.registerUser = async(req,res)=>{
     const error = validationResult(req);
     if(!error.isEmpty()){
         return res.status(400).json({errors : error.array()})
@@ -27,7 +27,7 @@ module.exports.registerUser = async(req,res,next)=>{
 
 }
 
-module.exports.loginUser =async(req,res,next)=>{
+module.exports.loginUser =async(req,res)=>{
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors : errors.array()})
@@ -51,7 +51,7 @@ module.exports.loginUser =async(req,res,next)=>{
     res.status(200).json({token,user})
 }
 
-module.exports.getUserProfile =async(req,res,next)=>{
+module.exports.getUserProfile =async(req,res)=>{
     return await res.status(200).json(req.user)
 }
 
@@ -63,32 +63,30 @@ module.exports.getUserProfile =async(req,res,next)=>{
 //     res.status(200).json({message : "logged out"})
 // }
 
-
 module.exports.logoutUser = async (req, res) => {
-    const token = req.cookies.token || req.headers.authorization.split(" ")[1];
-
-    // if (!token) {
-    //     return res.status(400).json({ message: "No token provided" });
-    // }
-
     try {
+        // Extract token from cookies or Authorization header
+        const token = req.cookies?.token || (req.headers.authorization?.split(" ")[1]);
+
+        if (!token) {
+            return res.status(400).json({ message: "No token provided" });
+        }
+
         // Check if the token is already blacklisted
         const existingToken = await blackListTokenModel.findOne({ token });
+
         if (!existingToken) {
             // Blacklist the token if it doesn't exist
             await blackListTokenModel.create({ token });
         }
 
-        // Clear the cookie
-        // res.clearCookie('token');
+        // Clear the token cookie
+        res.clearCookie('token', { httpOnly: true, secure: true });
 
-        // Send response and ensure the flow stops
-        return res.status(200).json({ message: 'Logged out successfully' });
+        return res.status(200).json({ message: "Logout successful" });
     } catch (error) {
-        console.error('Error during logout:', error);
-
-        // Send an error response and ensure the flow stops
-        return res.status(500).json({ message: 'Internal Server Error' });
+        console.error('Error during user logout:', error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 };
 

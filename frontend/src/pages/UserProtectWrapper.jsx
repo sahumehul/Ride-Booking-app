@@ -1,39 +1,42 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { UserDataContext } from '../context/UserContext'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react';
+import { UserDataContext } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Loading from '../componants/Loading'; // Import the Loading component
 
-const UserProtectWrapper = ({children}) => {
+const UserProtectWrapper = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const [isLoading, setIsLoading] = useState(true); // Track loading state
+  const { user, setUser } = useContext(UserDataContext);
+  const navigate = useNavigate();
 
-    const token = localStorage.getItem('token')
-    // const [isLoading, setIsloading] = useState(true)
-    const {user, setUser} = useContext(UserDataContext)
-    const navigate = useNavigate()
-    useEffect(()=>{
-      if(!token){
-        navigate("/login")
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+      return;
     }
 
-    axios.get(`${import.meta.env.VITE_BASE_URL}/users/profile`,{
-      headers:{
-        Authorization : `Bearer ${token}`
-      }
-    }).then((response)=>{
-      setUser(response.data.user)
-      // setIsloading(false)
-    }).catch(err=>{
-      localStorage.removeItem('token')
-      navigate('/login')
-    })
+    axios
+      .get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUser(response.data.user);
+        setIsLoading(false); // Stop loading after user is verified
+      })
+      .catch((err) => {
+        localStorage.removeItem('token');
+        navigate('/login');
+      });
+  }, [token, navigate, setUser]);
 
-    },[token])
+  if (isLoading) {
+    return <Loading />; // Show the loading spinner while verifying the user
+  }
 
-    
-  return (
-    <>
-        {children}
-    </>
-  )
-}
+  return <>{children}</>;
+};
 
-export default UserProtectWrapper
+export default UserProtectWrapper;

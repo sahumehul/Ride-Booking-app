@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const UserLogout = () => {
+const CaptainLogout = () => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!token) {
             console.warn('No token found in localStorage.');
-            navigate('/login');
+            navigate('/captain-login');
             return;
         }
 
@@ -18,7 +18,7 @@ export const UserLogout = () => {
                 const baseURL = import.meta.env.VITE_BASE_URL;
                 if (!baseURL) {
                     console.error('Base URL is not defined. Check your .env file.');
-                    navigate('/login');
+                    navigate('/captain-login');
                     return;
                 }
 
@@ -34,7 +34,7 @@ export const UserLogout = () => {
                 if (response.status === 200) {
                     console.log('Logout successful.');
                     localStorage.removeItem('token'); // Remove the token
-                    navigate('/login'); // Redirect to login page
+                    navigate('/captain-login'); // Redirect to login page
                 }
             } catch (error) {
                 if (error.response) {
@@ -52,7 +52,7 @@ export const UserLogout = () => {
                 }
 
                 // Redirect to login page regardless of the error
-                navigate('/home');
+                navigate('/captain-home');
             }
         };
 
@@ -60,13 +60,13 @@ export const UserLogout = () => {
     }, [token, navigate]);
 
     return(
-    
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="flex items-center gap-2 text-white">
         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-white"></div>
         <span>Loading...</span>
       </div>
-    </div> );
+    </div>
+    );
 };
 
-export default UserLogout;
+export default CaptainLogout;

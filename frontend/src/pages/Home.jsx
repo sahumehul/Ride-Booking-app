@@ -10,7 +10,7 @@ import LookingForDriver from "../componants/LookingForDriver";
 import WaitingForDriver from "../componants/WaitingForDriver";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LiveTracking from "../componants/LiveTracking";
 // import MehulRidesLogo from "../componants/MehulRidesLogo";
 
@@ -269,7 +269,7 @@ const Home = () => {
   
       // Optionally set the ride details in state
       // setRide(response.data); // Assuming `setRide` updates the ride state
-      alert("Ride created successfully!");
+      // alert("Ride created successfully!");
     } catch (error) {
       console.error("Error creating ride:", error.response?.data || error.message);
       alert("Failed to create ride. Please try again later.");
@@ -280,12 +280,36 @@ const Home = () => {
   return (
     <div className="relative h-screen overflow-hidden">
       {/* <MehulRidesLogo className="w-48 absolute top-5" /> */}
+      <div
+  className="fixed p-2 top-0 flex items-center justify-between w-full"
+  style={{
+    zIndex: panelOpen ? 1 : 50, // Adjust z-index dynamically
+    visibility: panelOpen ? "hidden" : "visible", // Hide the header when the panel is open
+  }}
+>
+  <img
+    className="w-32"
+    src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4a7ce8105340349.5f76a68c6c5d6.gif"
+    alt="Logo"
+  />
+  <Link
+    to="/user/logout"
+    className="h-10 w-10 flex items-center justify-center rounded-full bg-white"
+  >
+    <i className="text-lg font-medium ri-logout-box-r-line"></i>
+  </Link>
+</div>
+
+
 
       <div className="h-screen w-screen">
-      <div className='h-4/5'>
-                <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
-
-            </div>
+        <div className="h-4/5">
+          <img
+            className="h-full w-full object-cover"
+            src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
+            alt=""
+          />
+        </div>
       </div>
       <div className="flex flex-col justify-end w-full h-screen top-0 absolute">
         <div className="h-[30%] bg-white p-6 relative scroll ">
@@ -308,7 +332,7 @@ const Home = () => {
             <input
               onClick={() => {
                 setPanelOpen(true);
-                setactiveField('pickup')
+                setactiveField("pickup");
               }}
               value={pickup}
               onChange={handlepickupChange}
@@ -320,7 +344,7 @@ const Home = () => {
               value={destination}
               onClick={() => {
                 setPanelOpen(true);
-                setactiveField('destination')
+                setactiveField("destination");
               }}
               onChange={handleDestinationChange}
               type="text"
@@ -328,15 +352,18 @@ const Home = () => {
               placeholder="Enter your destination"
             />
           </form>
-          
         </div>
         <div ref={panelRef} className="h-0 bg-white">
           <LocationSearchPanel
-          findTrip={findTrip}
-          suggestions = {activeField=== 'pickup' ? pickupSuggestion : destinationSuggestion}
-            setDestination = {setDestination}
-            setpickup = {setpickup}
-            activeField = {activeField}
+            findTrip={findTrip}
+            suggestions={
+              activeField === "pickup"
+                ? pickupSuggestion
+                : destinationSuggestion
+            }
+            setDestination={setDestination}
+            setpickup={setpickup}
+            activeField={activeField}
             setPanelOpen={setPanelOpen}
             setVehiclePanel={setVehiclePanel}
           />
@@ -346,25 +373,52 @@ const Home = () => {
         ref={vehiclePanelRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-10  pt-10"
       >
-        <VehiclePanel vehiclePanel={vehiclePanel} selectVehicle = {setVehicleType}  fare={fare} setVehiclePanel={setVehiclePanel} setConfirmRidePanel={setConfirmRidePanel} />
+        <VehiclePanel
+          vehiclePanel={vehiclePanel}
+          selectVehicle={setVehicleType}
+          fare={fare}
+          setVehiclePanel={setVehiclePanel}
+          setConfirmRidePanel={setConfirmRidePanel}
+        />
       </div>
       <div
         ref={confirmRidePanelRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-6  pt-12"
       >
-        <ConfirmRide pickup={pickup} destination={destination} fare={fare} vehicleType={vehicleType} createRide={createRide} setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} />
+        <ConfirmRide
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          createRide={createRide}
+          setVehicleFound={setVehicleFound}
+          setConfirmRidePanel={setConfirmRidePanel}
+        />
       </div>
       <div
         ref={vehicleFoundPanelRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-6  pt-12"
       >
-        <LookingForDriver pickup={pickup} destination={destination} fare={fare} vehicleType={vehicleType} setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound} setVehiclePanel={setVehiclePanel}/>
+        <LookingForDriver
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          setConfirmRidePanel={setConfirmRidePanel}
+          setVehicleFound={setVehicleFound}
+          setVehiclePanel={setVehiclePanel}
+        />
       </div>
       <div
-      ref={waitingForDriverRef}
+        ref={waitingForDriverRef}
         className="fixed w-full z-10 bottom-0 bg-white px-3 py-6 pt-12"
       >
-        <WaitingForDriver ride={ride} setVehicleFound={setVehicleFound} waitingForDriver={waitingForDriver} setWaitingForDriver={setWaitingForDriver}/>
+        <WaitingForDriver
+          ride={ride}
+          setVehicleFound={setVehicleFound}
+          waitingForDriver={waitingForDriver}
+          setWaitingForDriver={setWaitingForDriver}
+        />
       </div>
     </div>
   );
